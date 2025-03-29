@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Task Manager</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Register</h1>
+    <form action="/register" method="POST" class="auth-form">
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required minlength="3">
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required minlength="6">
+        </div>
+        <button type="submit">Register</button>
+        <p>Already have an account? <a href="/login">Login here</a>.</p>
+         <!-- Add a placeholder for error messages if needed -->
+         <div class="error-message"><!-- Server might redirect with error msg here --></div>
+    </form>
+</body>
+</html>

@@ -1,0 +1,523 @@
+/* public/style.css - V3 - Major Overhaul & Refinements */
+
+/* --- Reset & Root Variables --- */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --bg-dark: #1a1a2e;         /* Deep purple background */
+    --bg-card: #2f2f4f;         /* Card background */
+    --bg-input: #2a2a4e;        /* Input field background */
+    --text-light: #e0e0e0;      /* Primary light text */
+    --text-secondary: #b0b0d0;  /* Secondary lighter text */
+    --text-dark: #1c1e21;       /* Dark text (for light backgrounds if needed) */
+    --accent-pink: #f8a5c2;     /* Main accent color (titles) */
+    --accent-purple: #a78bfa;   /* Interactive purple */
+    --accent-purple-darker: #7e57c2; /* Button purple */
+    --accent-pink-darker: #ec407a; /* Action pink */
+    --border-color: #4a4a6a;    /* Dark borders */
+    --border-light: #e4e6eb;    /* Light borders (unused in dark theme) */
+    --error-red: #ff7979;       /* Error text */
+    --error-bg: rgba(255, 121, 121, 0.1); /* Error background */
+    --success-green: #50fa7b;   /* Success indicator */
+    --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    --shadow-color: rgba(0, 0, 0, 0.4); /* Darker shadow for contrast */
+    --shadow-interactive: rgba(167, 139, 250, 0.25); /* Purple glow */
+}
+
+/* --- Base Styles --- */
+body {
+    font-family: var(--font-sans);
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    line-height: 1.6;
+    font-size: 16px;
+    padding: 25px; /* Consistent padding */
+    min-height: 100vh; /* Ensure background covers full height */
+}
+
+h1, h2, h3 {
+    font-weight: 600;
+    color: var(--accent-pink); /* Use pink for major headings */
+    text-align: center;
+    margin-bottom: 1.2em;
+}
+
+h1 { font-size: clamp(2em, 5vw, 2.8em); margin-top: 0.5em; } /* Responsive H1 */
+h2 { font-size: clamp(1.5em, 4vw, 2em); margin-top: 2em; color: var(--text-light); border-bottom: 1px solid var(--border-color); padding-bottom: 0.5em; max-width: 850px; margin-left: auto; margin-right: auto;}
+h3 { font-size: 1.3em; color: var(--accent-purple); text-align: left; margin-bottom: 0.8em;}
+
+a {
+    color: var(--accent-purple);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+a:hover {
+    color: lighten(var(--accent-purple), 10%);
+    text-decoration: underline;
+}
+
+p {
+    margin-bottom: 1em;
+    color: var(--text-secondary);
+}
+
+/* --- Buttons --- */
+.button, button {
+    display: inline-block;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+    transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+    background-color: var(--accent-purple-darker);
+    color: #ffffff;
+    box-shadow: 0 2px 5px var(--shadow-color);
+    line-height: 1.4; /* Ensure text vertical alignment */
+}
+button:hover, .button:hover {
+    background-color: lighten(var(--accent-purple-darker), 10%);
+    box-shadow: 0 4px 8px var(--shadow-color);
+    transform: translateY(-2px); /* Lift on hover */
+}
+button:active, .button:active {
+    transform: translateY(0px); /* Press effect */
+    box-shadow: 0 1px 3px var(--shadow-color);
+}
+
+/* Specific Button Types */
+#add-task-btn { background-color: var(--accent-pink-darker); }
+#add-task-btn:hover { background-color: darken(var(--accent-pink-darker), 10%); }
+
+.back-button { background-color: #5c6bc0; }
+.back-button:hover { background-color: #3f51b5; }
+
+.logout-form button { background-color: var(--border-color); }
+.logout-form button:hover { background-color: lighten(var(--border-color), 10%); }
+
+.button.link-style { /* For edit button */
+    background: none;
+    border: none;
+    color: var(--accent-purple);
+    padding: 2px 4px;
+    font-weight: 500;
+    box-shadow: none;
+    vertical-align: middle;
+    font-size: 0.9em;
+}
+.button.link-style:hover {
+    text-decoration: underline;
+    color: lighten(var(--accent-purple), 10%);
+    box-shadow: none;
+    background: none;
+    transform: none;
+}
+
+/* --- Forms & Inputs --- */
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 1rem;
+    background-color: var(--bg-input);
+    color: var(--text-light);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+input::placeholder { color: var(--text-secondary); opacity: 0.7; }
+input:focus {
+    outline: none;
+    border-color: var(--accent-purple);
+    box-shadow: 0 0 0 3px var(--shadow-interactive);
+}
+
+.error-message {
+    color: var(--error-red);
+    font-weight: 500;
+    margin-top: 12px;
+    padding: 10px 15px;
+    background-color: var(--error-bg);
+    border: 1px solid rgba(var(--error-red), 0.3);
+    border-radius: 4px;
+    text-align: center;
+    font-size: 0.9em;
+}
+
+/* --- Authentication Pages Specific Styles --- */
+.auth-form {
+    max-width: 450px;
+    margin: 50px auto;
+    padding: 35px 40px;
+    background-color: var(--bg-card); /* Use card background */
+    border-radius: 12px;
+    box-shadow: 0 5px 15px var(--shadow-color);
+    text-align: center;
+}
+.auth-form h1 { color: var(--accent-pink); margin-bottom: 1.5em; }
+.auth-form div { margin-bottom: 20px; text-align: left; }
+.auth-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    font-size: 0.9em;
+}
+.auth-form button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    background-color: var(--accent-pink-darker); /* Use pink for primary action */
+}
+.auth-form button[type="submit"]:hover {
+     background-color: darken(var(--accent-pink-darker), 10%);
+}
+.auth-form p { margin-top: 30px; font-size: 0.95em; color: var(--text-secondary);}
+.auth-form p a { color: var(--accent-purple); font-weight: 600; }
+.auth-form p a:hover { color: lighten(var(--accent-purple), 10%); }
+
+/* Landing Page Links */
+.auth-links { text-align: center; margin-top: 40px;}
+.auth-links .button { margin: 10px 15px; }
+
+/* --- Dashboard Page Specific Styles --- */
+.dashboard-container {
+    max-width: 1000px; /* Allow wider dashboard */
+    margin: 30px auto;
+    padding: 30px;
+}
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+.dashboard-header h1 { text-align: left; margin-bottom: 0; font-size: 2.2em; }
+
+.create-board-section, .board-list-section {
+    margin-bottom: 40px;
+    padding: 30px; /* Add padding to sections */
+    background-color: var(--bg-card); /* Card background for sections */
+    border-radius: 12px;
+    box-shadow: 0 3px 10px var(--shadow-color);
+}
+.create-board-section h2, .board-list-section h2 {
+    text-align: left;
+    margin-top: 0;
+    margin-bottom: 25px;
+    border: none;
+    color: var(--text-light);
+    font-size: 1.6em;
+}
+
+.create-board-form { /* Form for creating board */
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+#new-board-name { flex-grow: 1; } /* Input takes available space */
+.create-board-form button { flex-shrink: 0; /* Button doesn't shrink */ }
+
+#board-list { /* UL for boards */
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.board-list-item { /* LI for each board - Flexbox for layout */
+    display: flex;
+    justify-content: space-between; /* Pushes name and button apart */
+    align-items: center;
+    padding: 18px 20px; /* More vertical padding */
+    border-bottom: 1px solid var(--border-color);
+    transition: background-color 0.2s ease;
+}
+.board-list-item:last-child { border-bottom: none; }
+.board-list-item:hover { background-color: rgba(255, 255, 255, 0.05); } /* Subtle hover */
+
+.board-name-link { /* Board name text */
+    font-weight: 600;
+    color: var(--text-light);
+    font-size: 1.15em;
+    margin-right: 20px; /* Ensure space between name and button */
+}
+.board-name-link:hover { color: var(--accent-pink); text-decoration: none; }
+
+.view-board-link { /* View board button */
+    padding: 8px 15px;
+    font-size: 0.9em;
+    background-color: var(--accent-purple-darker);
+    color: white;
+    font-weight: 500;
+    box-shadow: none;
+    flex-shrink: 0; /* Prevent shrinking */
+}
+.view-board-link:hover {
+     background-color: lighten(var(--accent-purple-darker), 10%);
+     box-shadow: none;
+     transform: translateY(-1px); /* Slight lift */
+}
+
+/* Loading/No Boards state */
+#board-list li.loading,
+#board-list li.no-boards {
+    color: var(--text-secondary);
+    font-style: italic;
+    text-align: center;
+    padding: 30px;
+    border-bottom: none;
+    justify-content: center; /* Override flex */
+}
+#board-list li.no-boards:hover { background-color: transparent; }
+
+
+/* --- Board Page Specific Styles --- */
+#board-name { /* H1 board title */
+    margin-bottom: 0.5em;
+    color: var(--accent-pink); /* Use pink */
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.5em;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+#current-user-info { /* Nickname display */
+     color: var(--text-secondary);
+     font-size: 1em;
+     margin-bottom: 30px;
+     text-align: center; /* Center nickname text */
+}
+.board-actions { /* Container for back button */
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* Task Input Area */
+.task-input-area { max-width: 750px; margin-bottom: 40px; margin-left:auto; margin-right: auto; }
+.task-input { /* Container for input + button */
+    display: flex; /* Enable flexbox */
+    border-radius: 8px;
+    box-shadow: 0 3px 8px var(--shadow-color);
+    border: 1px solid var(--border-color);
+    overflow: hidden; /* Clip children */
+    background-color: var(--bg-input);
+}
+#task-title {
+    flex-grow: 1; /* Allow input to grow */
+    font-size: 1.05em;
+    border: none; /* Remove default border */
+    background: none; /* Transparent background */
+    color: var(--text-light);
+    padding: 12px 15px;
+}
+#task-title:focus {
+    box-shadow: none; /* Remove focus shadow from input itself */
+    outline: none;
+}
+#add-task-btn {
+    font-size: 1rem;
+    padding: 12px 28px;
+    flex-shrink: 0; /* Prevent button shrinking */
+    border-radius: 0 7px 7px 0; /* Round only right corners */
+    border-left: 1px solid var(--border-color); /* Separator */
+}
+
+
+/* Task List Grid */
+#task-list {
+    list-style: none;
+    padding: 0;
+    margin: 30px auto 0 auto;
+    max-width: 1100px; /* Wider grid */
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Responsive columns */
+    gap: 30px; /* Increased gap */
+}
+
+/* Task Item Card (LI) */
+#task-list li {
+    background-color: var(--bg-card);
+    border-radius: 12px;
+    padding: 25px 30px; /* More padding */
+    box-shadow: 0 5px 15px var(--shadow-color);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch; /* Stretch items horizontally */
+    text-align: left; /* Align text left */
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease, opacity 0.3s ease;
+    border: 1px solid transparent; /* Start with transparent border */
+    position: relative; /* For potential absolute positioning inside */
+    overflow: hidden; /* Clip content if needed */
+}
+#task-list li:hover:not(.completed) { /* Hover only on non-completed */
+    transform: translateY(-6px) scale(1.01); /* Lift and slightly grow */
+    box-shadow: 0 10px 25px var(--shadow-interactive);
+    border-color: var(--accent-purple); /* Purple border on hover */
+}
+
+/* Task Card Content */
+.task-text { /* Title */
+    font-weight: 600;
+    font-size: 1.3em;
+    color: var(--accent-pink);
+    margin-bottom: 12px;
+    word-break: break-word;
+}
+
+.assignment-display { /* Assignment text */
+    font-size: 0.95em;
+    color: var(--text-secondary);
+    margin-bottom: 18px;
+    min-height: 1.4em;
+    line-height: 1.5; /* Ensure space for button */
+    word-break: break-word; /* Wrap long assignments */
+}
+
+.task-controls { /* Container for checkbox/delete */
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Space out checkbox and delete */
+    margin-top: auto; /* Push to bottom */
+    padding-top: 18px;
+    border-top: 1px solid var(--border-color);
+}
+
+/* Checkbox */
+.task-controls input[type="checkbox"] {
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--text-secondary);
+    border-radius: 6px; /* Slightly squared */
+    position: relative;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+    margin-right: 10px; /* Space between checkbox and potential label (if added) */
+}
+.task-controls input[type="checkbox"]:checked {
+    background-color: var(--success-green); /* Green check */
+    border-color: var(--success-green);
+}
+.task-controls input[type="checkbox"]:checked::after {
+    content: '✔';
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--bg-card); /* Dark checkmark */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    line-height: 1;
+}
+.task-controls input[type="checkbox"]:hover {
+    border-color: var(--accent-purple);
+}
+
+/* Delete Button */
+.delete-btn {
+    background: none;
+    color: var(--text-secondary);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.3em;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease, background-color 0.2s ease;
+    font-weight: bold;
+    flex-shrink: 0;
+    padding: 0; /* Reset padding */
+}
+.delete-btn:hover {
+    color: var(--error-red);
+    background-color: var(--error-bg);
+}
+.delete-btn::before { content: "✕"; display: inline-block; line-height: 1;}
+.delete-btn span { display: none; }
+
+/* === Completed Task Styling === */
+#task-list li.completed {
+    background-color: rgba(var(--bg-card), 0.7); /* Use rgba for transparency */
+    opacity: 0.6;
+    box-shadow: 0 2px 8px var(--shadow-color);
+    border-color: transparent !important; /* Override hover border */
+}
+/* Ensure completed tasks don't lift on hover */
+#task-list li.completed:hover {
+    transform: none;
+    box-shadow: 0 2px 8px var(--shadow-color);
+    opacity: 0.7; /* Slightly less fade on hover */
+}
+
+/* Apply line-through */
+#task-list li.completed .task-text,
+#task-list li.completed .assignment-display {
+    text-decoration: line-through;
+    text-decoration-thickness: 1.5px; /* Make line-through slightly thicker */
+    color: var(--text-secondary);
+    opacity: 0.8;
+}
+
+/* Style completed checkbox */
+#task-list li.completed .task-controls input[type="checkbox"] {
+    border-color: var(--text-secondary);
+    opacity: 0.7;
+}
+#task-list li.completed .task-controls input[type="checkbox"]:checked {
+     background-color: var(--text-secondary); /* Greyed check */
+     border-color: var(--text-secondary);
+}
+#task-list li.completed .task-controls input[type="checkbox"]:checked::after {
+    color: var(--bg-card);
+}
+
+/* Style completed delete/edit buttons */
+#task-list li.completed .delete-btn { color: var(--text-secondary); opacity: 0.7;}
+#task-list li.completed .delete-btn:hover { background: none; color: var(--text-secondary); }
+#task-list li.completed .edit-assignment-btn {
+     color: var(--text-secondary);
+     opacity: 0.7;
+     pointer-events: none;
+     cursor: default;
+     text-decoration: none;
+}
+#task-list li.completed .edit-assignment-btn:hover {
+     color: var(--text-secondary); /* Prevent color change */
+     text-decoration: none; /* Ensure no underline */
+}
+
+/* Loading/No Tasks/Error Placeholders */
+#task-list li.loading,
+#task-list li.no-tasks,
+#task-list li.error-message {
+    grid-column: 1 / -1; /* Span full grid width */
+    background-color: transparent;
+    color: var(--text-secondary);
+    font-style: italic;
+    padding: 50px;
+    text-align: center;
+    box-shadow: none;
+    border: none;
+}
+#task-list li.loading:hover,
+#task-list li.no-tasks:hover,
+#task-list li.error-message:hover {
+    transform: none;
+    box-shadow: none;
+    border: none;
+}
+#task-list li.error-message {
+    color: var(--error-red);
+    font-weight: 500;
+}

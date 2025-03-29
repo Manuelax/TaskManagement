@@ -1,0 +1,5 @@
+# Node modules
+node_modules/
+
+sessions.db
+tasks_boards.db
