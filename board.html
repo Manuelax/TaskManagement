@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Title will be set by JavaScript -->
+    <title>Task Board - Loading...</title>
+    <link rel="stylesheet" href="/style.css"> <!-- Links to the CSS -->
+</head>
+<body>
+    <!-- Board name will be loaded here -->
+    <h1 id="board-name">Loading Board...</h1>
+
+    <!-- Display current user's nickname -->
+    <p id="current-user-info">Connecting...</p>
+
+     <div class="board-actions">
+         <a href="/" class="button back-button">Back to Dashboard</a>
+     </div>
+
+
+    <!-- Area for adding new tasks -->
+    <div class="task-input-area">
+        <div class="task-input">
+            <input type="text" id="task-title" placeholder="Enter new task title..." maxlength="255">
+            <button id="add-task-btn">Add Task</button>
+        </div>
+    </div>
+
+    <!-- List where tasks appear (Grid container) -->
+    <h2>Tasks</h2>
+    <ul id="task-list">
+        <!-- Task cards added here by JavaScript -->
+        <li class="loading">Loading tasks...</li>
+    </ul>
+
+    <!-- Socket.IO client library -->
+    <script src="/socket.io/socket.io.js"></script>
+    <!-- Custom script for board interaction -->
+    <script src="/board-script.js"></script>
+</body>
+</html>
